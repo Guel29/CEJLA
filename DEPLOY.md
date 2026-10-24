@@ -1,5 +1,17 @@
 # Prévia interativa no Render
 
+## Alternativa sem Render: GitHub Codespaces
+
+Abra https://codespaces.new/Guel29/CEJLA?ref=main e crie o Codespace. Esse link cria o ambiente de desenvolvimento; não é uma URL de aplicativo já hospedado. É necessário entrar no GitHub e ter acesso ao Codespaces e saldo de uso disponível. A configuração `.devcontainer/devcontainer.json` prepara Node.js 24, executa os testes e inicia o CEJLA automaticamente.
+
+Quando o ambiente abrir, selecione **Ports / Portas**, encontre **3000 — Abrir CEJLA** e clique no ícone de globo para abrir o aplicativo. O GitHub atribui a URL HTTPS nesse momento. A porta permanece privada e requer sua autenticação no GitHub. Não altere para pública com dados reais ou com a senha demonstrativa do administrador.
+
+Alterações de telas feitas nesse Codespace são detectadas pelo aplicativo; alterações feitas em outro ambiente precisam ser publicadas no GitHub e atualizadas no Codespace. Não existe sincronização automática entre os dois ambientes. O serviço para quando o Codespace é encerrado; não é hospedagem permanente.
+
+Se o início automático falhar, execute `npm run dev` no terminal do Codespace e abra a porta 3000. O consumo e a disponibilidade do Codespaces dependem da sua conta GitHub; confira a franquia e os limites antes de criar recursos pagos.
+
+## Configuração do Render
+
 O aplicativo está preparado para uma hospedagem de demonstração no Render, com HTTPS e implantação automática a partir do GitHub. Nenhuma URL pública foi criada nesta tarefa: não há conta de hospedagem conectada nem ferramenta de publicação no ambiente atual.
 
 ## O que conectar
