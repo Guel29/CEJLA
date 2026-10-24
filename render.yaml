@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: cejla-preview
+    runtime: node
+    plan: free
+    buildCommand: npm test
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: 24.19.0
+      - key: COOKIE_SECURE
+        value: "1"
+      - key: DATA_DIR
+        value: /tmp/cejla-preview

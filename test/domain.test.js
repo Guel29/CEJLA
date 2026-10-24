@@ -1,0 +1,9 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {medal,summarize} from '../domain.js';
+const assessment=(id,grades,extra={})=>({id,school:1,class:'A',subject:'Matemática',period:'Bimestre',max:10,weight:1,grades,...extra});
+test('limites de medalhas e ausência de troféu por arredondamento',()=>{for(const [p,m] of [[59,'Em progresso'],[60,'Bronze'],[75,'Prata'],[90,'Ouro'],[99.999,'Ouro'],[100,'Troféu']])assert.equal(medal(p),m);assert.equal(medal(70,{bronze:50,silver:65,gold:85}),'Prata');});
+test('pendências, zero, ausência, dispensa, pesos e troféu',()=>{const items=[assessment(1,[{student:1,score:10,status:'graded'}]),assessment(2,[])];let r=summarize(items,1);assert.equal(r.overall,100);assert.equal(r.disciplines[0].trophy,false);assert.equal(r.partial,true);items[1].grades=[{student:1,score:10,status:'graded'}];assert.equal(summarize(items,1).disciplines[0].trophy,true);items[1].grades=[{student:1,score:0,status:'absent'}];assert.equal(summarize(items,1).overall,50);items[1].grades=[{student:1,score:0,status:'exempt'}];assert.equal(summarize(items,1).overall,100);items[1].grades=[{student:1,score:0,status:'graded'}];items[1].weight=3;assert.equal(summarize(items,1).overall,25);assert.equal(summarize(items,2).overall,null);});
+test('média geral usa disciplinas, mantendo períodos separados',()=>{const items=[assessment(1,[{student:1,score:10}]),assessment(2,[{student:1,score:0}],{subject:'História'})];assert.equal(summarize(items,1).overall,50);assert.equal(summarize(items,1).disciplines.length,2);});
+
+test('pesos das disciplinas compõem a média geral',()=>{const items=[assessment(1,[{student:1,score:10}],{subjectWeight:3}),assessment(2,[{student:1,score:0}],{subject:'História',subjectWeight:1})];assert.equal(summarize(items,1).overall,75);});
